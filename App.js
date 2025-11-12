@@ -32,6 +32,16 @@ async function registerForPushNotificationsAsync() {
   return token;
 }
 
+async function scheduleNotification() {
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: "Notificación",
+      body: 'Esta es una prueba de notificación local',
+    },
+    trigger: { seconds: 5 },
+  });
+}
+
 export default function App() {
   return (
     <View style={styles.container}>
