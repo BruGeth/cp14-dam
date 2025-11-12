@@ -11,6 +11,27 @@ Notifications.setNotificationHandler({
   }),
 });
 
+async function registerForPushNotificationsAsync() {
+  let token;
+  if (Device.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Permiso para notificaciones denegado!');
+      return;
+    } 
+      token = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log("Token del dispositivo:",token);
+  } else {
+    alert('Debes de usar un dispositivo físico para las notificaciones');
+  }
+  return token;
+}
+
 export default function App() {
   return (
     <View style={styles.container}>
