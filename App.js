@@ -43,9 +43,17 @@ async function scheduleNotification() {
 }
 
 export default function App() {
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token => setToken(token));
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text style={styles.title}>Token de dispositivo:</Text>
+      <Text selectable>{token}</Text>
+      <Button title='Programar notificación' onPress={scheduleNotification} />
     </View>
   );
 }
@@ -53,8 +61,13 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  title: {  
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
 });
