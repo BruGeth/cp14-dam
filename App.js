@@ -3,6 +3,14 @@ import * as Device from 'expo-device';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
 export default function App() {
   return (
     <View style={styles.container}>
